@@ -1,5 +1,5 @@
 import streamlit as st
-
+import pandas as pd
 # Configuración de la página
 st.set_page_config(   
     page_icon="📌",
@@ -27,3 +27,7 @@ st.markdown("""
 
 st.header("Solución")
 
+df = pd.read_csv('dataset/estudiantes_colombia.csv')
+st.dataframe(df)
+st.header(" Primeras 5 filas del dataframe")
+st.write(df.head())
