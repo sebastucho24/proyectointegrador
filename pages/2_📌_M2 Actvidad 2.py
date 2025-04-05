@@ -27,7 +27,32 @@ st.markdown("""
 
 st.header("Solución")
 
+import pandas as pd
+import streamlit as st
+
 df = pd.read_csv('dataset/estudiantes_colombia.csv')
+
 st.dataframe(df)
-st.header(" Primeras 5 filas del dataframe")
+
+st.header("Primeras 5 filas del dataframe")
 st.write(df.head())
+
+st.header("Últimas 5 filas del dataframe")
+st.write(df.tail())
+
+st.header("Resumen del dataframe")
+st.write("Información del dataframe:")
+st.write(df.info())
+
+st.write("Descripción estadística del dataframe:")
+st.write(df.describe())
+
+st.header("Seleccionar columnas específicas")
+columnas = st.multiselect("Selecciona las columnas que quieres ver", df.columns)
+if columnas:
+    st.write(df[columnas])
+
+st.header("Filtrar estudiantes por promedio")
+promedio_minimo = st.slider("Selecciona el promedio mínimo", 0.0, 5.0, 3.0)
+estudiantes_filtrados = df[df['promedio'] > promedio_minimo]
+st.write(estudiantes_filtrados)
