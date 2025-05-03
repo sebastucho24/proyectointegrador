@@ -4,6 +4,7 @@ import numpy as np
 import sqlite3
 import json
 
+
 st.set_page_config(page_icon="📌", layout="wide")
 st.title("Momento 2 - Actividad 1")
 
@@ -99,7 +100,7 @@ st.dataframe(df_series)''', language="python")
 # 5️⃣ Consulta a SQLite
 st.subheader("📊 Datos desde SQLite")
 st.markdown("Se realizó una consulta a una base de datos SQLite para extraer información de estudiantes.")
-conn = sqlite3.connect("estudiantes.db")
+conn = sqlite3.connect("dataset/estudiantes.db")
 try:
     df_sqlite = pd.read_sql("SELECT * FROM estudiantes", conn)
     st.dataframe(df_sqlite)
@@ -108,7 +109,7 @@ except Exception as e:
     st.write(e)
 conn.close()
 
-st.code('''conn = sqlite3.connect("estudiantes.db")
+st.code('''conn = sqlite3.connect("dataset/estudiantes.db")
 df_sqlite = pd.read_sql("SELECT * FROM estudiantes", conn)
 st.dataframe(df_sqlite)
 conn.close()''', language="python")
@@ -116,7 +117,7 @@ conn.close()''', language="python")
 # 6️⃣ DataFrame desde un Archivo Excel
 st.subheader("📄 Datos desde Excel")
 st.markdown("Se cargó un DataFrame desde un archivo Excel (`data.xlsx`).")
-excel_filename = "data.xlsx"
+excel_filename = "dataset/data.xlsx"
 try:
     df_excel = pd.read_excel(excel_filename, engine="openpyxl")
     st.dataframe(df_excel)
@@ -129,7 +130,7 @@ st.dataframe(df_excel)''', language="python")
 # 7️⃣ DataFrame desde un archivo JSON
 st.subheader("📄 Datos desde JSON")
 st.markdown("Se cargó un DataFrame desde un archivo JSON (`data.json`).")
-json_filename = "data.json"
+json_filename = "dataset/data.json"
 try:
     df_json = pd.read_json(json_filename)
     st.dataframe(df_json)

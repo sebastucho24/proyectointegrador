@@ -18,14 +18,20 @@ Esta actividad es una introducción práctica a Python y a las estructuras de da
 En ella, exploraremos los conceptos fundamentales de Python y aprenderemos a utilizar variables,
 tipos de datos, operadores, y las estructuras de datos más utilizadas como listas, tuplas,
 diccionarios y conjuntos.
+
+Además, implementaremos una aplicación interactiva con Streamlit, donde simularemos la generación de datos demográficos utilizando la librería Faker, y aplicaremos filtros dinámicos sobre un conjunto de datos que representa una población ficticia.
+Se trabajará con bibliotecas como NumPy y Pandas para el manejo y análisis de datos, incluyendo aspectos como valores nulos, conversión de tipos, y operaciones estadísticas simples.
 """)
 
 st.header("Objetivos de aprendizaje")
 st.markdown("""
-- Comprender los tipos de datos básicos en Python  
-- Aprender a utilizar variables y operadores  
-- Dominar las estructuras de datos fundamentales  
-- Aplicar estos conocimientos en ejemplos prácticos  
+-Dominar las estructuras de datos fundamentales como listas, tuplas, diccionarios y conjuntos
+
+-Familiarizarse con el uso de bibliotecas como NumPy, Pandas, y Faker
+
+-Identificar y manejar valores nulos dentro de un conjunto de datos
+
+-Aplicar filtros sobre datos utilizando condiciones lógicas 
 """)
 
 def generar_datos():

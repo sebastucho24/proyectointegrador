@@ -1,14 +1,17 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
-# Configuración de la página
-st.set_page_config(   
+# Configuración de la página (debe ser la primera línea de código)
+st.set_page_config(
     page_icon="📌",
     layout="wide"
 )
 
+# Título de la aplicación
 st.title("Momento 2 - Actividad 4")
 
+# Descripción de la actividad
 st.header("Descripción de la actividad")
 st.markdown("""
 Esta actividad es una introducción práctica a Python y a las estructuras de datos básicas.
@@ -17,8 +20,8 @@ tipos de datos, operadores, y las estructuras de datos más utilizadas como list
 diccionarios y conjuntos.
 """)
 
+# Objetivos de aprendizaje
 st.header("Objetivos de aprendizaje")
-
 st.markdown("""
 - Comprender los tipos de datos básicos en Python
 - Aprender a utilizar variables y operadores
@@ -26,78 +29,64 @@ st.markdown("""
 - Aplicar estos conocimientos en ejemplos prácticos
 """)
 
-st.header("Solución")
+# Creación del DataFrame de ejemplo
+def crear_df():
+    np.random.seed(42)
+    data = {
+        'ID': range(1, 11),
+        'Nombre': ['Juan', 'Ana', 'Pedro', 'Maria', 'Luis', 'Carlos', 'Sofia', 'Marta', 'Andres', 'Lucia'],
+        'Edad': np.random.randint(20, 60, 10),
+        'Salario': np.random.randint(1000000, 5000000, 10),
+        'Ciudad': ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena', 
+                   'Bucaramanga', 'Manizales', 'Pereira', 'Santa Marta', 'Cúcuta']
+    }
+    df = pd.DataFrame(data)
+    return df
 
+# Crear el DataFrame
+df = crear_df()
 
-# Crear dos DataFrames con datos de estudiantes
-df1 = pd.DataFrame({
-    'Nombre': ['Ana', 'Luis'],
-    'Edad': [20, 22],
-    'Ciudad': ['Madrid', 'Barcelona']
-})
+# Mostrar el DataFrame original
+st.header("Datos Iniciales")
+st.write(df)
 
-df2 = pd.DataFrame({
-    'Nombre': ['Marta', 'Pedro'],
-    'Edad': [19, 21],
-    'Ciudad': ['Valencia', 'Sevilla']
-})
+# Ejercicio 1: Filtro por Edad utilizando .loc
+st.subheader("🔹 Filtrar por Edad utilizando .loc")
+edad_min, edad_max = st.slider("Selecciona el rango de edad", 18, 80, (20, 50))
+df_edad = df.loc[df['Edad'].between(edad_min, edad_max)]
+st.write(df_edad)
 
-# Agregar filas usando pd.concat (eje 0 para filas)
-df_combinado = pd.concat([df1, df2], ignore_index=True)
-# ignore_index=True reinicia los índices para evitar duplicados
+# Ejercicio 2: Selección de filas y columnas usando .iloc
+st.subheader("🔹 Seleccionar filas y columnas con .iloc")
+fila = st.slider("Selecciona el número de fila (índice)", 0, len(df) - 1, 0)
+columna = st.slider("Selecciona el número de columna", 0, len(df.columns) - 1, 0)
+valor_seleccionado = df.iloc[fila, columna]
+st.write(f"Valor en la fila {fila} y columna {columna}: {valor_seleccionado}")
 
-print("DataFrame combinado (filas agregadas):")
-print(df_combinado)
+# Ejercicio 3: Modificar un valor en el DataFrame con .loc
+st.subheader("🔹 Modificar un valor con .loc")
+id_modificar = st.selectbox("Selecciona el ID de la persona a modificar", df['ID'])
+nueva_edad = st.number_input("Ingresa la nueva edad", min_value=18, max_value=100, value=df.loc[df['ID'] == id_modificar, 'Edad'].values[0])
+df.loc[df['ID'] == id_modificar, 'Edad'] = nueva_edad
+st.write("Datos actualizados:")
+st.write(df)
 
-# Agregar una nueva columna
-df_combinado['Nota'] = [8.5, 7.0, 9.0, 6.5]  # Nueva columna con notas
-print("\nDataFrame con nueva columna:")
-print(df_combinado)
+# Ejercicio 4: Filtro combinado con .loc y .iloc
+st.subheader("🔹 Filtro combinado con .loc y .iloc")
+filtro_ciudad = st.selectbox("Selecciona una ciudad para filtrar", df['Ciudad'].unique())
+df_filtrado = df.loc[df['Ciudad'] == filtro_ciudad]
 
+# Verifica si df_filtrado tiene más de una fila antes de crear el slider
+if len(df_filtrado) > 1:
+    fila_1 = st.slider("Selecciona la fila para ver con .iloc", 0, len(df_filtrado) - 1, 0)
+    columna_1 = st.slider("Selecciona la columna para ver con .iloc", 0, len(df.columns) - 1, 0)
+    valor_filtrado = df_filtrado.iloc[fila_1, columna_1]
+    st.write(f"Valor seleccionado con .iloc en la ciudad {filtro_ciudad}: {valor_filtrado}")
+else:
+    st.write(f"No hay suficientes datos para mostrar en la ciudad {filtro_ciudad}.")
 
-
-# Crear un DataFrame con datos de ventas
-df_ventas = pd.DataFrame({
-    'Producto': ['Manzana', 'Naranja', 'Manzana', 'Naranja', 'Manzana'],
-    'Ciudad': ['Madrid', 'Madrid', 'Barcelona', 'Barcelona', 'Madrid'],
-    'Ventas': [100, 150, 200, 120, 80]
-})
-
-# Agrupar por 'Producto' y calcular el promedio de ventas
-ventas_por_producto = df_ventas.groupby('Producto')['Ventas'].mean()
-
-print("Promedio de ventas por producto:")
-print(ventas_por_producto)
-
-# Agrupar por 'Ciudad' y contar el número de registros
-conteo_por_ciudad = df_ventas.groupby('Ciudad').count()
-
-print("\nConteo de registros por ciudad:")
-print(conteo_por_ciudad)
-
-
-
-# Crear dos DataFrames
-df_estudiantes = pd.DataFrame({
-    'ID': [1, 2, 3, 4],
-    'Nombre': ['Ana', 'Luis', 'Marta', 'Pedro'],
-    'Curso': ['Matemáticas', 'Historia', 'Física', 'Química']
-})
-
-df_notas = pd.DataFrame({
-    'ID': [1, 2, 5],
-    'Nota': [8.5, 7.0, 9.0]
-})
-
-# Fusión tipo 'inner'
-inner_merge = pd.merge(df_estudiantes, df_notas, on='ID', how='inner')
-# 'on' especifica la columna clave; 'how' define el tipo de fusión
-
-print("Fusión tipo inner:")
-print(inner_merge)
-
-# Fusión tipo 'left'
-left_merge = pd.merge(df_estudiantes, df_notas, on='ID', how='left')
-
-print("\nFusión tipo left:")
-print(left_merge)
+# Resumen Final
+st.subheader("🔹 Resumen Final")
+st.write(f"Total de registros: {df.shape[0]}")
+st.write(f"Datos filtrados para la ciudad {filtro_ciudad}:")
+st.write(df_filtrado)
