@@ -28,7 +28,6 @@ st.markdown("""
 - Aplicar estos conocimientos en ejemplos prácticos  
 """)
 
-# Función para generar los datos
 def generar_datos():
     fake = Faker('es_CO')
     np.random.seed(123)
@@ -75,45 +74,28 @@ def generar_datos():
     df['fecha_nacimiento'] = pd.to_datetime(df['fecha_nacimiento'])
     return df
 
-# Generar datos
 df = generar_datos()
 
-# -----------------------------------------
-# 🔹 Ejercicio 1: Visualización inicial
-# -----------------------------------------
 st.subheader("🔹 Ejercicio 1: Visualización de los datos generados")
 st.write(df.head())
 
-# -----------------------------------------
-# 🔹 Ejercicio 2: Filtro por Edad
-# -----------------------------------------
 st.subheader("🔹 Ejercicio 2: Filtro por Edad")
 edad_min, edad_max = st.slider("Selecciona el rango de edad", 15, 75, (20, 40))
 df_edad = df[df['edad'].between(edad_min, edad_max)]
 st.write(df_edad)
 
-# -----------------------------------------
-# 🔹 Ejercicio 3: Filtro por Municipio
-# -----------------------------------------
 st.subheader("🔹 Ejercicio 3: Filtro por Municipio")
 municipios = st.multiselect("Selecciona municipios", sorted(df['municipio'].unique()))
 df_municipio = df[df['municipio'].isin(municipios)] if municipios else df
 st.write(df_municipio)
 
-# -----------------------------------------
-# 🔹 Ejercicio 4: Filtro por Ingreso Mensual
-# -----------------------------------------
 st.subheader("🔹 Ejercicio 4: Filtro por Ingreso Mensual")
 ingreso_min = st.slider("Filtrar por ingreso mensual mínimo", 800000, 12000000, 2000000)
 df_ingreso = df[df['ingreso_mensual'] > ingreso_min]
 st.write(df_ingreso)
 
-# -----------------------------------------
-# 🔹 Ejercicio 5: Filtro Combinado y Resumen
-# -----------------------------------------
 st.subheader("🔹 Ejercicio 5: Filtros Combinados y Resumen Final")
 
-# Aplicar todos los filtros a la vez
 df_filtrado = df[
     df['edad'].between(edad_min, edad_max) &
     (df['ingreso_mensual'] > ingreso_min)
