@@ -79,38 +79,39 @@ estudiantes = [
     {
         "nombre": "Juan Sebastian Correa",
         "programa": "Desarrollo de Software",
-        "semestre": "2025-1",
+        "semestre": "2025-1 - III",
         "repo_url": "https://github.com/username/proyecto-ntp",
-        "imagen_path": "assets\IMG_2044.jpg"
+        "imagen_path": "assets/IMG_2044.jpg"
     },
     {
-        "nombre": "Martínez",
+        "nombre": "Emanuel Martínez Valencia",
         "programa": "Desarrollo de Software",
-        "semestre": "2025-1",
+        "semestre": "2025-1 - III",
         "repo_url": "https://github.com/laura/proyecto-ntp",
-        "imagen_path": ""
+        "imagen_path": "assets/mtz.jpeg"
+    },
+    {
+        "nombre": "Miguel Ángel Patiño Valencia",
+        "programa": "Desarrollo de Software",
+        "semestre": "2025-1 - III",
+        "repo_url": "https://github.com/miguel/proyecto-ntp",
+        "imagen_path": "assets/miguel.jpeg"
     },
     {
         "nombre": "Carlos",
         "programa": "Desarrollo de Software",
-        "semestre": "2025-1",
+        "semestre": "2025-1 - III",
         "repo_url": "https://github.com/carlos/proyecto-ntp",
         "imagen_path": ""
     },
     {
-        "nombre": "",
+        "nombre": "Stiven",
         "programa": "Desarrollo de Software",
-        "semestre": "2025-1",
+        "semestre": "2025-1 - III",
         "repo_url": "https://github.com/ana/proyecto-ntp",
         "imagen_path": ""
-    },
-    {
-        "nombre": "Miguel",
-        "programa": "Desarrollo de Software",
-        "semestre": "2025-1",
-        "repo_url": "https://github.com/miguel/proyecto-ntp",
-        "imagen_path": ""
     }
+
 ]
 
 # Mostrar todos los estudiantes
@@ -120,6 +121,6 @@ for estudiante in estudiantes:
 # Pie de página
 st.markdown("""
 <div style="text-align: center; color: #666; font-size: 0.8rem;">
-    © 2025 CESDE
+    ©️ 2025 CESDE
 </div>
 """, unsafe_allow_html=True)
